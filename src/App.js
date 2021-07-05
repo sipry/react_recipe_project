@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline} from '@material-ui/core';
@@ -13,7 +12,7 @@ export default function App() {
   return (
 
     <div className={classes.root}>
-      <CssBaseline />
+      <CssBaseline/>
       <Header/>
       <Menu/>
      

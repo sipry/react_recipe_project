@@ -1,41 +1,53 @@
 import { makeStyles } from '@material-ui/core/styles';
-// import useWindowPosition from '../hook/useWindowPosition';
-// import { ContactsOutlined } from '@material-ui/icons';
-// import { width } from '@material-ui/system';
 import MenuCard from './MenuCard';
+import React, { useEffect, useState } from 'react';
+import GridList from '@material-ui/core/GridList';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         minheight: "100vh",
         margin: "30px;",
-        
+
     },
-    row:{
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        [theme.breakpoints.down('md')]:{
+    columuns: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        [theme.breakpoints.down('md')]: {
             flexDirection: "column"
         }
     }
 }));
-// eslint-disable-next-line
-export default function(){
+
+export default function Menu() {
+    const [recipes, setRecepies] = useState([]);
+    const fetchRecipes = () => {
+        fetch('http://127.0.0.1:8000/recipes/').then(response => {
+            return response.json();
+        }).then(data => {
+
+            setRecepies(data);
+        });
+    }
+    useEffect(() => {
+        fetchRecipes();
+    }, [])
+
     const classes = useStyles();
-    // eslint-disable-next-line
-    // const cheked = useWindowPosition("header");
+
     return (
-    <div className={classes.root} id="Menupage">
-        <div className={classes.row}>
-        <MenuCard/>
-        <MenuCard/>
-        <MenuCard/> 
+        <div className={classes.root} id="Menupage">
+
+            <GridList className={classes.columuns} cols={3}>
+                {
+                    recipes.map((recipe) => (
+
+                        <MenuCard recipe={recipe}/>
+                    ))
+                }
+           </GridList>
+
+
         </div>
-        <div className={classes.row}>
-        <MenuCard/>
-        <MenuCard/> 
-        <MenuCard/>   
-        </div>
-    </div>
     );
 }
