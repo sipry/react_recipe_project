@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, fade } from '@material-ui/core/styles';
-import { AppBar, IconButton, Toolbar, Collapse} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
 import { Link as Scroll } from 'react-scroll';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   appbar: {
     background: 'white',
     opacity: "0.3",
   },
   appBarSolid: {
-    background: 'white',
+    background: "rgb(241, 239, 239)",
     webkiTransition: "background 2.5s",
     mozTransition: "background 2.5s",
     msTransition: "background 2.5s",
@@ -26,14 +23,13 @@ const useStyles = makeStyles((theme) => ({
   },
   appbarTitle: {
     flexGrow: '1',
-    color:"black",
+    color: "black",
   },
   icon: {
     fontSize: '2rem',
     // eslint-disable-next-line
-    color:"black",
+    color: "black",
   },
- 
   root: {
     minHeight: "100vh",
     backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,.5), rgba(0,0,0,.4)), url(${process.env.PUBLIC_URL + '/images/bg.jpg'})`,
@@ -60,47 +56,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '4rem',
     opacity: "0.5",
   },
-  search: {
-    
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
+  favIcon: {
+    fontSize: "13px",
   },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
+  
 }));
+
+
 export default function Header() {
+
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
   useEffect(() => {
@@ -111,20 +75,19 @@ export default function Header() {
   const navRef = React.useRef()
   navRef.current = navBackground
   useEffect(() => {
-      const handleScroll = () => {
-          const show = window.scrollY > 100
-          if (show) {
-              setNavBackground('appBarSolid')
-          } else {
-              setNavBackground('appbar')
-          }
+    const handleScroll = () => {
+      const show = window.scrollY > 100
+      if (show) {
+        setNavBackground('appBarSolid')
+      } else {
+        setNavBackground('appbar')
       }
-      document.addEventListener('scroll', handleScroll)
-      return () => {
-          document.removeEventListener('scroll', handleScroll)
-      }
-  }, [])
-
+    }
+    document.addEventListener('scroll', handleScroll)
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, []);
 
   return (
     <div className={classes.root} id="header">
@@ -133,19 +96,7 @@ export default function Header() {
           <h1 className={classes.appbarTitle}>
             vegeterian
           </h1>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+         
         </Toolbar>
       </AppBar>
       <Collapse
